@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    
+</head>
+<body>
+    
+    <!-- click right and go to console to see weather infromation -->
+    <input type="text" placeholder="city">
+    <button> submit</button>
+    
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+
+        let p=fetch("https://goweather.herokuapp.com/weather/sangli")
+        p.then((value1)=>{
+            console.log(value1.status)
+            console.log(value1.ok)
+            // return value1.text() //read and retun text
+            return value1.json() //why use json? not understand
+        }).then((value2)=>{
+            console.log(value2)
+        })
+    </script>
+</html>

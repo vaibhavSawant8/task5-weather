@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body 
+        {
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            margin: 0;
+        }
+
+        .weather-container 
+        {
+           text-align: center;
+        }
+
+        .weather-info 
+        {
+            margin-top: 20px;
+        }
+
+        #city 
+        {
+           padding: 5px;
+           font-size: 16px;
+           background-color: rgb(59, 234, 170);
+           color: red;
+        }
+
+        #searchBtn 
+        {
+            padding: 5px 10px;
+             font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="weather-container">
+
+        <h1>Real-Time Weather Information using jquery</h1>
+        <p>#code_with </p>
+
+         <div class="weather-info">
+
+             <div class="location">
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" placeholder="Enter city name">
+                <button id="searchBtn">Search</button>
+              </div>
+
+                <div class="result">
+                    <h2 id="location"></h2>
+                    <p id="temperature"></p>
+                     <p id="cloud"></p>
+                    
+                     
+                 </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () 
+            {
+                $('#searchBtn').on('click', function () 
+                 {
+                    var city = $('#city').val();
+                    if (city !== '') 
+                     {
+                        $.ajax(
+                    {
+                         url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=1a85c00d6f81316a9cb9921777477997`,
+                         type: 'GET',
+                        
+                         success: function (data) //sucess fn call
+                         {
+                             var location = data.name;  //name of teh city 
+                            var temperature = data.main.temp + '°C'; //actual temp in that city
+                            var cloud = data.weather[0].description; // describe the clouds status like rainy sunny cloudy henze like that
+                            
+                             $('#location').text(location);     //acess details from line no 85
+                             $('#temperature').text('Temperature: ' + temperature); //acess details from line no 86
+                             $('#cloud').text('cloud status: ' + cloud); //acess details from line no 87
+                             
+                            },
+                            error: function (){alert('City not found  enter correct city name'); } //city not match then disply the error pop msg
+                               
+                    });
+        } 
+       
+    });
+});
+
+        </script>
+
+</html>
